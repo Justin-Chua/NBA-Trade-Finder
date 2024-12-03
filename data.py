@@ -32,5 +32,5 @@ NBA_TEAMS = [
     "Washington Wizards"
 ]
 
-# The base URL for team salary caps, and player salaries for a specific team
-HOOPS_HYPE_BASE_URL = "https://hoopshype.com/salaries/"
+# The base URL for salaries and players
+HOOPS_HYPE_BASE_URL = "https://hoopshype.com"

@@ -4,22 +4,6 @@ from pymongo import MongoClient
 
 from data import HOOPS_HYPE_BASE_URL, NBA_TEAMS, SCRAPER_PLAYER_EXCEPTIONS
 
-# DATA THAT NEEDS TO BE SCRAPED:
-# TEAMS
-# - Team ID - auto gen
-# - Name - done
-# - Current Salary - done
-# PLAYERS
-# - Player ID - auto generated
-# - Team ID - passed into function
-# - Name - done
-# - Headshot link - done
-# - Jersey Number - done
-# - Position - done
-# - Salary for next 5 years - done
-# - Length of contract - done
-# - Contract statuses (player options, team options) - for V2
-
 def soupify(url): 
     return BeautifulSoup(requests.get(url).content, "html.parser") 
 

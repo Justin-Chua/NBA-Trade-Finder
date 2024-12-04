@@ -4,8 +4,14 @@ from pymongo import MongoClient
 
 from data import HOOPS_HYPE_BASE_URL, NBA_TEAMS, SCRAPER_PLAYER_EXCEPTIONS
 
-def soupify(url): 
-    return BeautifulSoup(requests.get(url).content, "html.parser")
+def soupify(url):
+    try:
+        request = requests.get(url)
+        request.raise_for_status()
+        return BeautifulSoup(request.content, "html.parser")
+    except Exception as e:
+        print(f"Error occurred while fetching request: { e }")
+
 
 def start_scraper():
     # connect to db
@@ -15,18 +21,21 @@ def start_scraper():
     # iterate through each NBA team, and scrape salary data for each team
     for team_index, team in enumerate(NBA_TEAMS, start=1):
         team_data, player_data = scrape_team_data(team_index, team)
-        team_collection.insert_one(team_data)
-        player_collection.insert_many(player_data)
+        try:
+            team_collection.insert_one(team_data)
+            player_collection.insert_many(player_data)
+        except Exception as e:
+            print(f"Error occured while trying to insert records: { e }")
     
 def scrape_team_data(team_index, team_name):
-    # status message for console
-    print("Scraping team data for: ", team_name)
     # scrape salary page for specified team
     soup = soupify(f"{ HOOPS_HYPE_BASE_URL }/salaries/{ team_name.lower().replace(" ", "_") }/")
+    team_record, player_records = None, []
+    # status message for console
+    print(f"Scraping team data for: { team_name }")
     team_salary = soup.find("div", class_="payroll-totals").find("span").text.strip()
     # find all players for specified team
     players = soup.find("tbody").find_all("tr")
-    player_records = []
     # iterate through each individual player, and scrape data
     for player in players:
         player_data = scrape_player_data(player, team_index, team_name)
@@ -42,7 +51,6 @@ def scrape_team_data(team_index, team_name):
     return team_record, player_records
 
 def scrape_player_data(player, team_id, team_name):
-    player_record = None
     # check whether or not the player name is stored as an anchor tag or td tag
     anchor = player.find("a")
     player_name = anchor.text.strip() if anchor else player.find("td", class_="name").text.strip()
@@ -52,12 +60,15 @@ def scrape_player_data(player, team_id, team_name):
     if not (player_name in SCRAPER_PLAYER_EXCEPTIONS.keys() \
         and SCRAPER_PLAYER_EXCEPTIONS[player_name] == team_name):
         # status message for console
-        print("\tScraping player data for: ", player_name)
+        print(f"\tScraping player data for: { player_name }")
         # scrape salary page for player to obtain bio information
         player_bio_info = scrape_player_bio(anchor, player_name)
         # scrape player salaries
         salary_tags = player.find_all("td")
-        player_salary_info = scrape_player_salaries(salary_tags)
+        if salary_tags:
+            player_salary_info = scrape_player_salaries(salary_tags)
+        else:
+            raise ValueError(f"Error while fetching { player_name }'s salaries")
 
         player_record = {
             "team_id": team_id,
@@ -71,9 +82,11 @@ def scrape_player_bio(anchor, player_name):
         if anchor:
             soup = soupify(f"{ HOOPS_HYPE_BASE_URL }/player/{ player_name.lower().replace(" ", "-") }/salary/")
             img_tag = soup.find("img", alt=player_name)
+            number_tag = soup.find("div", class_="player-jersey")
+            position_tag = soup.find("span", class_="player-bio-text-line-value")
             player_headshot = img_tag.get("src") if img_tag else "-"
-            player_number = soup.find("div", class_="player-jersey").text.strip()
-            player_position = soup.find("span", class_="player-bio-text-line-value").text.strip()
+            player_number = number_tag.text.strip() if number_tag else "-"
+            player_position = position_tag.text.strip() if position_tag else "-"
         else:
             player_headshot, player_number, player_position = "-", "-", "-"
         

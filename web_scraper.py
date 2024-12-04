@@ -50,18 +50,20 @@ def scrape_team_data(team_index, team_name):
     # that is greater than the length of "players", but less than the starting player_id
     # for the team to follow. This will handle the case in which a player is traded. 
     max_player_id, next_team_starting_id = (100 * team_index) + len(players), (100 * (team_index + 1))
-    player_collection.delete_many({ "_id": { "$gt": max_player_id , "$lte": next_team_starting_id }})
+    player_collection.delete_many({ "_id": { "$gt": max_player_id , "$lt": next_team_starting_id }})
     # iterate through each individual player, and scrape data
     for player_index, player in enumerate(players):
-        scrape_player_data(player_collection, team_index, player_index, player)
+        scrape_player_data(player, player_collection, player_index, team_index, team_name)
 
-def scrape_player_data(player_collection, team_id, player_index, player):
+def scrape_player_data(player, player_collection, player_index, team_id, team_name):
     player_id = (team_id * 100) + player_index
     # check whether or not the player name is stored as an anchor tag or td tag
     anchor = player.find("a")
     player_name = anchor.text.strip() if anchor else player.find("td", class_="name").text.strip()
-    # if the player is not listed as an exception, continue to scrape
-    if player_name not in SCRAPER_PLAYER_EXCEPTIONS:
+    # if the player is not listed as an exception, or does not match the team in which the player
+    # is exempted from (i.e. Reggie Jackson), continue to scrape
+    if not (player_name in SCRAPER_PLAYER_EXCEPTIONS.keys() \
+        and SCRAPER_PLAYER_EXCEPTIONS[player_name] == team_name):
         # status message for console
         print("\tScraping player data for: ", player_name)
         # scrape salary page for player to obtain number and position

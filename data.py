@@ -35,10 +35,10 @@ NBA_TEAMS = [
 # The base URL for salaries and players
 HOOPS_HYPE_BASE_URL = "https://hoopshype.com"
 
-# A list of NBA players that the scraper should ignore
-SCRAPER_PLAYER_EXCEPTIONS = [
-    "Eric Bledsoe", # Retired - paid by Portland
-    "Jaren Jackson Jr", # Temporary - player page is bugged
-    "Reggie Jackson", # Active - paid by Charlotte
-    "Ricky Rubio" # Retired - paid by Cleveland
-]
+# A dictionary of NBA players mapped to their team, which should be ignored by the scraper
+SCRAPER_PLAYER_EXCEPTIONS = {
+    "Eric Bledsoe": "Portland Trail Blazers", # Retired - paid by Portland
+    "Jaren Jackson Jr": "Memphis Grizzlies", # Temporary - player page is bugged
+    "Reggie Jackson": "Charlotte Hornets", # Active - paid by Charlotte
+    "Ricky Rubio": "Cleveland Cavaliers" # Retired - paid by Cleveland
+}

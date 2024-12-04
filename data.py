@@ -32,5 +32,13 @@ NBA_TEAMS = [
     "Washington Wizards"
 ]
 
-# The base URL for team salary caps, and player salaries for a specific team
-HOOPS_HYPE_BASE_URL = "https://hoopshype.com/salaries/"
+# The base URL for salaries and players
+HOOPS_HYPE_BASE_URL = "https://hoopshype.com"
+
+# A dictionary of NBA players mapped to their team, which should be ignored by the scraper
+SCRAPER_PLAYER_EXCEPTIONS = {
+    "Eric Bledsoe": "Portland Trail Blazers", # Retired - paid by Portland
+    "Jaren Jackson Jr": "Memphis Grizzlies", # Temporary - player page is bugged
+    "Reggie Jackson": "Charlotte Hornets", # Active - paid by Charlotte
+    "Ricky Rubio": "Cleveland Cavaliers" # Retired - paid by Cleveland
+}

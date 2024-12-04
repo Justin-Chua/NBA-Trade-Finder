@@ -6,7 +6,6 @@ services:
     container_name: mongodb-nba-container
     ports:
       - "27017:27017"
-    volumes:
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    volumes: []
     environment:
       MONGO_INITDB_DATABASE: nba

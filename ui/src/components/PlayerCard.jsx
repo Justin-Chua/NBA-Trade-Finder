@@ -3,7 +3,7 @@ import { VStack, Box, Flex, Text, Image } from "@chakra-ui/react";
 const PlayerCard = () => {
     return (
         <>  
-            <VStack spacing="0.5rem" py="1rem" minH="calc((80px * 5) + (1.5rem * 4))" minW="350px" bg="white" align="center">
+            <VStack spacing="0.5rem" py="1rem" minH="calc((80px * 5) + (1.5rem * 4))" minW="350px" bg="white" align="center" borderRadius="0.5rem">
                 <Image
                     src="https://cdn.hoopshype.com/i/46/20/4d/zaccharie-risacher.png"
                     boxSize="225px"

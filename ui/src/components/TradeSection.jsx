@@ -3,6 +3,7 @@ import TradeHeader from "./TradeHeader.jsx";
 import PlayerCard from "./PlayerCard.jsx";
 import TradeItem from "./TradeItem.jsx";
 import AddTradeItem from "./AddTradeItem.jsx";
+import TradeFooter from "./TradeFooter.jsx";
 
 const TradeSection = () => {
     return (
@@ -18,6 +19,7 @@ const TradeSection = () => {
                     <AddTradeItem />
                 </VStack>
             </Flex>
+            <TradeFooter />
         </Box>
     );
 };

@@ -2,7 +2,7 @@ import { Flex, Image, Select } from "@chakra-ui/react";
 
 const TradeHeader = () => {
     return (
-        <Flex px="6rem" h="100px" bg="red.600" gap="6rem" align="center" justify="center" overflow="hidden">
+        <Flex gap="6rem" px="6rem" h="100px" bg="red.600" align="center" justify="center" overflow="hidden">
             <Image 
             src="https://seeklogo.com/images/A/atlanta-hawks-logo-A108D0AC8D-seeklogo.com.png"
             boxSize="200px"

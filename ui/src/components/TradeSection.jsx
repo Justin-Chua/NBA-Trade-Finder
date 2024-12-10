@@ -9,7 +9,7 @@ const TradeSection = () => {
     return (
         <Box p="0" mx="2rem" minH="850px" minW="850px" bg="gray.300" borderRadius="2rem" overflow="hidden">
             <TradeHeader />
-            <Flex m="2rem" direction="row" gap="2rem" align="center" justify="center">
+            <Flex px="1rem" m="2rem" direction="row" gap="2rem" align="center" justify="space-between">
                 <PlayerCard />
                 <VStack spacing="1.5rem">
                     <TradeItem />

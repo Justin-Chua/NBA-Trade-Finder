@@ -1,10 +1,10 @@
-import { Box, HStack, VStack, Text } from "@chakra-ui/react";
+import { Box, HStack, VStack, Text, Heading } from "@chakra-ui/react";
 
 const TradeFooter = () => {
     return (
-        <HStack px="6rem" h="calc(850px - 100px - (2rem * 2) - 496px)" bg="black" align="center" justify="space-between">
-            <Box p="1rem" width="35%" bg="white" align="center" justify="center" borderRadius="0.5rem">
-                <Text color="red" fontWeight="semibold" fontSize="2rem">Invalid Trade</Text>
+        <HStack px="3rem" h="calc(850px - 100px - (2rem * 2) - 496px)" bg="black" align="center" justify="space-between">
+            <Box p="1rem" width="40%" bg="white" align="center" justify="center" borderRadius="0.5rem">
+                <Heading as="h3" color="red" fontSize="2rem">Invalid Trade</Heading>
             </Box>
             <VStack spacing="0.5rem" width="50%">
                 <HStack justify="space-between" width="100%">

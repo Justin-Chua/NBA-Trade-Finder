@@ -6,7 +6,7 @@ const TradeHeader = () => {
     const [teamSelection, setTeamSelection] = useState("Select option...");
 
     return (
-        <Flex pl="calc(3rem + 25px + (100px / 2))" pr="3rem" h="100px" bg="red.600" align="center" justify="space-between" overflow="hidden">
+        <Flex pl="calc(3rem + 25px + (100px / 2))" pr="3rem" h="100px" bg="ATL" align="center" justify="space-between" overflow="hidden">
             <Image 
                 src="https://seeklogo.com/images/A/atlanta-hawks-logo-A108D0AC8D-seeklogo.com.png"
                 boxSize="200px"

@@ -1,4 +1,3 @@
-// ui/src/components/TradeHeader.jsx
 import { useContext, useState } from 'react'
 import { Flex, Image, Heading, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 import { ArrowDownIcon } from '@chakra-ui/icons'

@@ -2,13 +2,18 @@ import { useContext, useState } from 'react'
 import { Flex, Image, Heading, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 import { ArrowDownIcon } from '@chakra-ui/icons'
 import { NBAContext } from '../NBAContext'
+import TeamAbbreviations from '../../../static-data/nba_teams.json'
 
 const TradeHeader = () => {
   const [teamSelection, setTeamSelection] = useState('Select option...')
   const { teams } = useContext(NBAContext)
 
   return (
-    <Flex pl='calc(3rem + 25px + (100px / 2))' pr='3rem' h='100px' bg='ATL' align='center' justify='space-between' overflow='hidden'>
+    <Flex 
+      pl='calc(3rem + 25px + (100px / 2))' pr='3rem' h='100px' 
+      bg={TeamAbbreviations[teamSelection] || 'gray.900'} 
+      align='center' justify='space-between' overflow='hidden'
+    >
       <Image
         src='https://seeklogo.com/images/A/atlanta-hawks-logo-A108D0AC8D-seeklogo.com.png'
         boxSize='200px'
@@ -26,7 +31,7 @@ const TradeHeader = () => {
               icon={<Image src='TODO: get team logo' boxSize='24px' />}
               iconSpacing='1rem'
             >
-              <Heading as='h1' fontSize='24px' fontWeight='light'>{team.name}</Heading>
+              <Heading as='h1' fontSize='22px' fontWeight='light'>{team.name}</Heading>
             </MenuItem>
           ))}
         </MenuList>

@@ -9,9 +9,9 @@ const TradeHeader = () => {
   const { teams } = useContext(NBAContext)
 
   return (
-    <Flex 
-      pl='calc(3rem + 25px + (100px / 2))' pr='3rem' h='100px' 
-      bg={TeamAbbreviations[teamSelection] || 'gray.900'} 
+    <Flex
+      pl='calc(3rem + 25px + (100px / 2))' pr='3rem' h='100px'
+      bg={TeamAbbreviations[teamSelection] || 'gray.900'}
       align='center' justify='space-between' overflow='hidden'
     >
       <Image

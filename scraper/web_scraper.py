@@ -7,9 +7,9 @@ from data import HOOPS_HYPE_BASE_URL, NBA_TEAMS, SCRAPER_PLAYER_EXCEPTIONS
 
 def soupify(url):
     try:
-        request = requests.get(url)
+        request = requests.get(url, timeout=15)
         request.raise_for_status()
-        return BeautifulSoup(request.content, "html.parser")
+        return BeautifulSoup(request.content, 'html.parser')
     except Exception as e:
         print(f"Error occurred while fetching request: {e}")
 
@@ -17,8 +17,8 @@ def soupify(url):
 def start_scraper():
     # connect to db
     connection = MongoClient("mongodb://localhost:27017/")
-    db = connection["nba"]
-    team_collection, player_collection = db["Teams"], db["Players"]
+    db = connection['nba']
+    team_collection, player_collection = db['Teams'], db['Players']
     # iterate through each NBA team, and scrape salary data for each team
     for team_index, team in enumerate(NBA_TEAMS, start=1):
         team_data, player_data = scrape_team_data(team_index, team)
@@ -60,7 +60,7 @@ def scrape_player_data(player, team_id, team_name):
     player_record = None
     # if the player is not listed as an exception, or does not match the team in which the player
     # is exempted from (i.e. Reggie Jackson), continue to scrape
-    if not (player_name in SCRAPER_PLAYER_EXCEPTIONS.keys() \
+    if not (player_name in SCRAPER_PLAYER_EXCEPTIONS
             and SCRAPER_PLAYER_EXCEPTIONS[player_name] == team_name):
         # status message for console
         print(f"\tScraping player data for: {player_name}")
@@ -88,11 +88,11 @@ def scrape_player_bio(anchor, player_name):
         img_tag = soup.find("img", alt=player_name)
         number_tag = soup.find("div", class_="player-jersey")
         position_tag = soup.find("span", class_="player-bio-text-line-value")
-        player_headshot = img_tag.get("src") if img_tag else "-"
-        player_number = number_tag.text.strip() if number_tag else "-"
-        player_position = position_tag.text.strip() if position_tag else "-"
+        player_headshot = img_tag.get('src') if img_tag else '-'
+        player_number = number_tag.text.strip() if number_tag else '-'
+        player_position = position_tag.text.strip() if position_tag else '-'
     else:
-        player_headshot, player_number, player_position = "-", "-", "-"
+        player_headshot, player_number, player_position = '-', '-', '-'
 
     player_bio_info = {
         "name": player_name,
@@ -108,7 +108,7 @@ def scrape_player_salaries(salary_tags):
     player_salaries, player_contract_length = [], 0
     for i in range(1, len(salary_tags)):
         # convert text into an int - remove commas and monetary sign
-        int_salary = int(salary_tags[i].text.strip().replace(",", "")[1::])
+        int_salary = int(salary_tags[i].text.strip().replace(',', '')[1::])
         player_salaries.append(int_salary)
         # if salary is non-zero, increment contract length by 1
         if int_salary:

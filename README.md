@@ -3,7 +3,7 @@ A web application used to simulate trade scenarios in the NBA. Inspired by the T
 
 ![Trade_Finder_Prototype](https://github.com/user-attachments/assets/e13106ec-d68c-4bb8-b483-749a4c9cd96e)
 
-# Running the Application Locally
+# Running the Database Locally
 1. Spin up a docker container to host application data in MongoDB: `docker-compose up -d`
 
     This will start a local MongoDB instance in a Docker container, accessible on `localhost:27017` of your local machine.
@@ -24,3 +24,8 @@ A web application used to simulate trade scenarios in the NBA. Inspired by the T
 
 
 3. Stop the Docker container when you're done: `docker-compose stop`
+
+# Running the Application Locally
+
+1. To run the backend server, navigate to the `backend` directory and run `npm install` to install dependencies. Then run `npm start` to start the server.
+2. To run the frontend client, navigate to the `ui` & `api` directory and run `npm install` to install dependencies in both directories. Then run `npm run dev` to start the client.

@@ -20,8 +20,8 @@ def start_scraper():
     db = connection['nba']
     team_collection, player_collection = db['Teams'], db['Players']
     # iterate through each NBA team, and scrape salary data for each team
-    for team_index, team in enumerate(NBA_TEAMS, start=1):
-        team_data, player_data = scrape_team_data(team_index, team)
+    for team_index, (team_name, team_abbreviation) in enumerate(NBA_TEAMS.items(), start=1):
+        team_data, player_data = scrape_team_data(team_index, team_name, team_abbreviation)
         try:
             team_collection.insert_one(team_data)
             player_collection.insert_many(player_data)
@@ -29,7 +29,7 @@ def start_scraper():
             print(f"Error occured while trying to insert records: {e}")
 
 
-def scrape_team_data(team_index, team_name):
+def scrape_team_data(team_index, team_name, team_abbreviation):
     # scrape salary page for specified team
     soup = soupify(f"{HOOPS_HYPE_BASE_URL}/salaries/{team_name.lower().replace(' ', '_')}/")
     team_record, player_records = None, []
@@ -47,6 +47,7 @@ def scrape_team_data(team_index, team_name):
     team_record = {
         "_id": team_index,
         "name": team_name,
+        "abbreviation": team_abbreviation,
         "salary": team_salary
     }
 

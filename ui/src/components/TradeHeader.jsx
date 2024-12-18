@@ -2,7 +2,6 @@ import { useContext, useState } from 'react'
 import { Flex, Image, Heading, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 import { ArrowDownIcon } from '@chakra-ui/icons'
 import { NBAContext } from '../NBAContext'
-import TeamAbbreviations from '../../../static-data/nba_teams.json'
 
 const TradeHeader = () => {
   const [teamSelection, setTeamSelection] = useState('Select option...')
@@ -11,7 +10,7 @@ const TradeHeader = () => {
   return (
     <Flex
       pl='calc(3rem + 25px + (100px / 2))' pr='3rem' h='100px'
-      bg={TeamAbbreviations[teamSelection] || 'gray.900'}
+      bg={teams[teamSelection]?.abbreviation || 'gray.900'}
       align='center' justify='space-between' overflow='hidden'
     >
       <Image
@@ -24,7 +23,7 @@ const TradeHeader = () => {
           <Heading as='h1' fontSize='24px'>{teamSelection}</Heading>
         </MenuButton>
         <MenuList maxH='270px' w='350px' fontSize='24px' border='4px' overflowY='auto'>
-          {teams.map((team) => (
+          {Object.values(teams).map((team) => (
             <MenuItem
               key={team._id}
               pl='1rem' h='50px' onClick={() => setTeamSelection(team.name)}

@@ -2,7 +2,7 @@ import { Box, HStack, VStack, Text, Heading } from '@chakra-ui/react'
 
 const TradeFooter = () => {
   return (
-    <HStack px='3rem' h='calc(850px - 100px - (2rem * 2) - 496px)' bg='gray.900' align='center' justify='space-between'>
+    <HStack px='3rem' h='calc(850px - 100px - (2rem * 2) - 496px)' bg='gray.800' align='center' justify='space-between'>
       <Box p='1rem' width='40%' bg='white' align='center' justify='center' borderRadius='0.5rem'>
         <Heading as='h3' color='red' fontSize='2rem'>Invalid Trade</Heading>
       </Box>

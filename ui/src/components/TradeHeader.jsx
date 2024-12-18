@@ -8,7 +8,11 @@ const TradeHeader = () => {
   const { teams } = useContext(NBAContext)
 
   return (
-    <Flex pl='calc(3rem + 25px + (100px / 2))' pr='3rem' h='100px' bg='ATL' align='center' justify='space-between' overflow='hidden'>
+    <Flex
+      pl='calc(3rem + 25px + (100px / 2))' pr='3rem' h='100px'
+      bg={teams[teamSelection]?.abbreviation || 'gray.900'}
+      align='center' justify='space-between' overflow='hidden'
+    >
       <Image
         src='https://seeklogo.com/images/A/atlanta-hawks-logo-A108D0AC8D-seeklogo.com.png'
         boxSize='200px'
@@ -19,14 +23,14 @@ const TradeHeader = () => {
           <Heading as='h1' fontSize='24px'>{teamSelection}</Heading>
         </MenuButton>
         <MenuList maxH='270px' w='350px' fontSize='24px' border='4px' overflowY='auto'>
-          {teams.map((team) => (
+          {Object.values(teams).map((team) => (
             <MenuItem
               key={team._id}
               pl='1rem' h='50px' onClick={() => setTeamSelection(team.name)}
               icon={<Image src='TODO: get team logo' boxSize='24px' />}
               iconSpacing='1rem'
             >
-              <Heading as='h1' fontSize='24px' fontWeight='light'>{team.name}</Heading>
+              <Heading as='h1' fontSize='22px' fontWeight='light'>{team.name}</Heading>
             </MenuItem>
           ))}
         </MenuList>

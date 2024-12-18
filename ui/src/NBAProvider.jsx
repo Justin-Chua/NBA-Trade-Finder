@@ -11,7 +11,11 @@ export const NBAProvider = ({ children }) => {
     const getTeams = async () => {
       try {
         const teamsData = await fetchTeams()
-        setTeams(teamsData)
+        const teamsByName = teamsData.reduce((acc, team) => {
+          acc[team.name] = team
+          return acc
+        }, {})
+        setTeams(teamsByName)
       } catch (error) {
         console.error('Error fetching teams:', error)
       }

@@ -22,11 +22,11 @@ const TradeHeader = () => {
       <Menu>
         <MenuButton 
           as={Button} leftIcon={<ArrowDownIcon />} bg='white' h='70px' w='350px' fontSize='24px' 
-          borderRadius='0.5rem' border='4px' borderColor='black'
+          borderRadius='0.5rem' border='4px' borderColor='gray.800'
         >
           <Heading as='h1' fontSize='24px'>{teamSelection}</Heading>
         </MenuButton>
-        <MenuList maxH='265px' w='350px' fontSize='24px' border='4px' overflowY='auto'>
+        <MenuList maxH='265px' w='350px' fontSize='24px' border='4px' borderColor='gray.800' overflowY='auto'>
           {Object.values(teams).map((team) => (
             <MenuItem
               key={team._id}

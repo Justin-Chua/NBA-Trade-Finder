@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Fade, Box, Flex, HStack, CloseButton, Text, Heading, Image } from '@chakra-ui/react'
 
-const TradeItem = () => {
+const BasicTradeItem = () => {
   const [hovered, setHovered] = useState(false)
 
   return (
     <Box 
-      pl='2rem' pr='1rem' py='1rem' minH='80px' minW='350px' bg='white' 
+      pl='2rem' pr='1rem' py='1rem' minH='5rem' minW='350px' bg='white' 
       borderRadius='0.5rem' align='center' justify='center'
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -19,18 +19,18 @@ const TradeItem = () => {
         />
         <Flex 
           grow='1' direction='column' gap='4px' align='center' justify='center'
-          onClick={() => console.log('Clicked on player info')} // Added for testing
           _hover={{cursor: 'pointer'}}
+          onClick={() => console.log('Clicked on player info')} // Added as placeholder
           >
           <Heading as='h2' fontSize='1rem'>Zaccharie Risacher</Heading>
           <Text fontWeight='light' fontSize='1rem'>$12,569,040</Text>
         </Flex>
         <Fade in={hovered}>
           <CloseButton 
-            size='sm' 
-            _hover={{bg: 'white'}}
+            size='sm'
             visibility={hovered ? 'visible' : 'hidden'}
-            onClick={() => console.log('Close button clicked')} // Added for testing
+            _hover={{bg: 'white'}}
+            onClick={() => console.log('Close button clicked')} // Added as placeholder
           />
         </Fade>
       </HStack>
@@ -38,4 +38,4 @@ const TradeItem = () => {
   )
 }
 
-export default TradeItem
+export default BasicTradeItem

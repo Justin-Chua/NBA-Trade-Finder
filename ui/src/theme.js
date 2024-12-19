@@ -3,6 +3,23 @@ import '@fontsource/roboto'
 import '@fontsource/poppins'
 
 const theme = extendTheme({
+  styles: {
+    global: {
+      '*': {
+        '::-webkit-scrollbar': {
+          w: '0.4rem'
+        },
+        '::-webkit-scrollbar-thumb': {
+          bg: 'gray.300',
+          borderRadius: '0.5rem'
+        },
+        '::-webkit-scrollbar-track': {
+          bg: 'white',
+          borderRadius: '0.5rem'
+        }  
+      }
+    }
+  },
   colors: {
     ATL: '#e03a3e',
     BOS: '#008348',

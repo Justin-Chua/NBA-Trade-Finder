@@ -7,10 +7,10 @@ const PlayerCard = () => {
       <Image
         src='https://cdn.hoopshype.com/i/46/20/4d/zaccharie-risacher.png'
         boxSize='250px'
-        borderRadius='1rem'
+        borderRadius='0.5rem'
         bg='ATL'
         border='4px'
-        borderColor='black'
+        borderColor='gray.800'
       />
       <Box p='0.5rem' w='100%' bg='ATL' align='center' justify='center'>
         <Heading as='h1' color='white' fontSize='24px'>Zaccharie Risacher</Heading>

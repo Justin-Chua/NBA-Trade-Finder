@@ -20,7 +20,10 @@ const TradeHeader = () => {
         visibility={teamSelection === 'Select option...' ? 'hidden' : 'visible'}
       />
       <Menu>
-        <MenuButton as={Button} leftIcon={<ArrowDownIcon />} bg='white' h='70px' w='350px' fontSize='24px' border='4px' borderColor='black'>
+        <MenuButton 
+          as={Button} leftIcon={<ArrowDownIcon />} bg='white' h='70px' w='350px' fontSize='24px' 
+          borderRadius='0.5rem' border='4px' borderColor='black'
+        >
           <Heading as='h1' fontSize='24px'>{teamSelection}</Heading>
         </MenuButton>
         <MenuList maxH='265px' w='350px' fontSize='24px' border='4px' overflowY='auto'>

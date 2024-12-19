@@ -26,7 +26,7 @@ const theme = extendTheme({
     NYK: '#1d428a',
     OKC: '#057dc1',
     ORL: '#0b77bd',
-    PHI: '#1d428a',
+    PHI: '#006bb6',
     PHO: '#1d1160',
     POR: '#cf0a2c',
     SAC: '#592d81',

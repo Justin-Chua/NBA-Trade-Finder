@@ -40,7 +40,7 @@ const AddTradeItem = ({ id }) => {
 
       <Modal 
         isOpen={modalOpen} onClose={() => setModalOpen(false)}
-        size='xl' scrollBehavior='inside'
+        size='2xl' scrollBehavior='inside'
       >
         <ModalOverlay />
         <ModalContent>

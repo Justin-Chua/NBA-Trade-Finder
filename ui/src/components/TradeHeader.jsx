@@ -38,7 +38,8 @@ const TradeHeader = ({ id }) => {
               key={team._id}
               pl='1rem' h='50px' onClick={() => handleTeamSelection(team.name)}
               icon={<Image src={`/resources/teams/${team.abbreviation}.svg`} boxSize='2rem' />}
-              iconSpacing='1rem'
+              iconSpacing='1rem' 
+              isDisabled={teamSelections.some(t => t?.name === team.name) ? true : false}
             >
               <Heading as='h1' fontSize='22px' fontWeight='light'>{team.name}</Heading>
             </MenuItem>

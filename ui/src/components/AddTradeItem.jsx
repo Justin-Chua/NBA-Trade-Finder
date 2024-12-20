@@ -12,17 +12,17 @@ import PropTypes from 'prop-types'
 
 const AddTradeItem = ({ id }) => {
   const [modalOpen, setModalOpen] = useState(false)
-  const { players, teamSelections } = useContext(NBAContext)
+  const { players, playerSelections, setPlayerSelections, teamSelections, modalSelection, setModalSelection } = useContext(NBAContext)
   const availablePlayers = Object.entries(players).filter(
     ([teamName, _]) => teamName !== teamSelections[id]?.name 
     && teamSelections.some(team => team?.name === teamName))
 
-  console.log('Avaialble players are: ', availablePlayers)
-
   const addPlayer = () => {
-    // TODO: add player to context, which will update UI
     setModalOpen(false)
-    console.log('Player added')
+    let updatedPlayerSelections = [...playerSelections]
+    updatedPlayerSelections[id].push(modalSelection)
+    setPlayerSelections(updatedPlayerSelections)
+    setModalSelection(null)
   }
 
   return (
@@ -59,6 +59,7 @@ const AddTradeItem = ({ id }) => {
             <Button 
               bg='gray.800' color='white' onClick={addPlayer}
               _hover={{bg: 'gray.200', color: 'gray.800'}}
+              isDisabled={modalSelection === null}
             >
               Add Player
             </Button>

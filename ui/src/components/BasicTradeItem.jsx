@@ -3,10 +3,17 @@ import { Fade, Box, Flex, HStack, CloseButton, Text, Heading, Image } from '@cha
 import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
-const BasicTradeItem = ({ player }) => {
+const BasicTradeItem = ({ id, player }) => {
+  const currentSalary = player.contract.salaries[0].toLocaleString('en-US')
   const [hovered, setHovered] = useState(false)
-  const { teams } = useContext(NBAContext)
-  
+  const { teams, playerSelections, setPlayerSelections } = useContext(NBAContext)
+
+  const removePlayer = () => {
+    let updatedPlayerSelections = [...playerSelections]
+    updatedPlayerSelections[id] = updatedPlayerSelections[id].filter(p => p.details.name !== player.details.name)
+    setPlayerSelections(updatedPlayerSelections)
+  }
+
   return (
     <Box 
       pl='2rem' pr='1rem' py='1rem' minH='5rem' minW='350px' bg='white' 
@@ -26,14 +33,13 @@ const BasicTradeItem = ({ player }) => {
           onClick={() => console.log('Clicked on player info')} // Added as placeholder
           >
           <Heading as='h2' fontSize='1rem'>{player.details.name}</Heading>
-          <Text fontWeight='light' fontSize='1rem'>{player.contract.salaries[0]}</Text>
+          <Text fontWeight='light' fontSize='1rem'>${currentSalary}</Text>
         </Flex>
         <Fade in={hovered}>
           <CloseButton 
             size='sm'
-            visibility={hovered ? 'visible' : 'hidden'}
             _hover={{bg: 'white'}}
-            onClick={() => console.log('Close button clicked')} // Added as placeholder
+            onClick={() => removePlayer()} // Added as placeholder
           />
         </Fade>
       </HStack>
@@ -42,6 +48,7 @@ const BasicTradeItem = ({ player }) => {
 }
 
 BasicTradeItem.propTypes = {
+  id: PropTypes.number.isRequired,
   player: PropTypes.shape({
     team_name: PropTypes.string.isRequired,
     details: PropTypes.shape({

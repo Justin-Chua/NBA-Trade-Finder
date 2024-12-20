@@ -18,7 +18,7 @@ const TradeSection = ({ id }) => {
         <PlayerCard />
         <VStack spacing='1.5rem'>
           {playerSelections[id].map((player) => (
-            <BasicTradeItem key={[player.team_name, player.details.name]} player={player} />
+            <BasicTradeItem key={[player.team_name, player.details.name]} id={id} player={player} />
           ))}
           <AddTradeItem id={id} />
         </VStack>

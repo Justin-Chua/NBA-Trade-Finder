@@ -5,19 +5,21 @@ import PropTypes from 'prop-types'
 
 const AdvancedTradeItem = ({ player }) => {
   const currentSalary = player.contract.salaries[0].toLocaleString('en-US')
-  const { teams } = useContext(NBAContext)
+  const { teams, setModalSelection } = useContext(NBAContext)
 
   return (
     <Box 
-      px='1rem' py='0.5rem' maxH='4rem' minW='560px' 
+      px='1rem' py='0.25rem' minH='4rem' minW='560px' 
       bg='gray.200' borderRadius='0.5rem'
       align='center' justify='center'
+      _hover={{cursor: 'pointer', bg: 'gray.300'}}
+      onClick={() => setModalSelection(player)}
     >
       <HStack align='center' justify='space-between'>
         <HStack gap='1rem'>
           <Image
             src={player.details.headshot || '/resources/placeholders/player-headshot-placeholder.png'}
-            boxSize='3rem'
+            boxSize='3.5rem'
           />
           <VStack gap='0.25rem' align='start'>
             <Heading as='h2' fontSize='1rem'>{player.details.name} | {player.details.position}</Heading>

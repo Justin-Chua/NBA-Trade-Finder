@@ -1,17 +1,18 @@
 import { useContext } from 'react'
-import { Box, HStack, VStack, Text, Heading, Image } from '@chakra-ui/react'
+import { Button, HStack, VStack, Text, Heading, Image } from '@chakra-ui/react'
 import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
-const AdvancedTradeItem = ({ player }) => {
+const AdvancedTradeItem = ({ id, player }) => {
   const currentSalary = player.contract.salaries[0].toLocaleString('en-US')
-  const { teams, setModalSelection } = useContext(NBAContext)
+  const { teams, playerSelections, setModalSelection } = useContext(NBAContext)
 
   return (
-    <Box 
+    <Button 
       px='1rem' py='0.25rem' minH='4rem' minW='560px' 
       bg='gray.200' borderRadius='0.5rem'
       align='center' justify='center'
+      isDisabled={playerSelections[id].some(p => p.details?.name === player.details.name)}
       _hover={{cursor: 'pointer', bg: 'gray.300'}}
       onClick={() => setModalSelection(player)}
     >
@@ -36,11 +37,12 @@ const AdvancedTradeItem = ({ player }) => {
           />
         </HStack>
       </HStack>
-    </Box>
+    </Button>
   )
 }
 
 AdvancedTradeItem.propTypes = {
+  id: PropTypes.number.isRequired,
   player: PropTypes.shape({
     team_name: PropTypes.string.isRequired,
     details: PropTypes.shape({

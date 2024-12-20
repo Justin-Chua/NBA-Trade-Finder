@@ -50,7 +50,7 @@ const AddTradeItem = ({ id }) => {
             <VStack gap='0.5rem' align='center' justify='center'>
               {availablePlayers.map(([teamName, players]) => (
                 players.map((player) => {
-                  return <AdvancedTradeItem key={[teamName, player.details.name]} player={player} />
+                  return <AdvancedTradeItem key={[teamName, player.details.name]} id={id} player={player} />
                 })
               ))}
             </VStack>

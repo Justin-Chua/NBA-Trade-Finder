@@ -16,7 +16,7 @@ const AdvancedTradeItem = ({ id, player }) => {
       _hover={{cursor: 'pointer', bg: 'gray.300'}}
       onClick={() => setModalSelection(player)}
     >
-      <HStack align='center' justify='space-between'>
+      <HStack w='full' align='center' justify='space-between'>
         <HStack gap='1rem'>
           <Image
             src={player.details.headshot || '/resources/placeholders/player-headshot-placeholder.png'}

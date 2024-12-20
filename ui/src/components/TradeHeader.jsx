@@ -5,12 +5,24 @@ import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
 const TradeHeader = ({ id }) => {
-  const { teams, teamSelections, setTeamSelections } = useContext(NBAContext)
+  const { teams, teamSelections, setTeamSelections, 
+    playerSelections, setPlayerSelections, playerCardSelections, setPlayerCardSelections } = useContext(NBAContext)
 
   const handleTeamSelection = (name) => {
     let updatedTeamSelections = [...teamSelections]
     updatedTeamSelections[id] = teams[name]
     setTeamSelections(updatedTeamSelections)
+    // clear the player selections and player card selections for all other trade sections
+    let updatedPlayerSelections = [...playerSelections]
+    let updatedPlayerCardSelections = [...playerCardSelections]
+    for (let i = 0; i < updatedPlayerSelections.length; i++) {
+      if (i != id) {
+        updatedPlayerSelections[i] = []
+        updatedPlayerCardSelections[i] = null
+      }
+    }
+    setPlayerSelections(updatedPlayerSelections)
+    setPlayerCardSelections(updatedPlayerCardSelections)
   }
 
   return (

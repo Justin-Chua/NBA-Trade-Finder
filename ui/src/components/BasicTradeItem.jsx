@@ -6,12 +6,18 @@ import PropTypes from 'prop-types'
 const BasicTradeItem = ({ id, player }) => {
   const currentSalary = player.contract.salaries[0].toLocaleString('en-US')
   const [hovered, setHovered] = useState(false)
-  const { teams, playerSelections, setPlayerSelections } = useContext(NBAContext)
+  const { teams, playerSelections, setPlayerSelections, playerCardSelections, setPlayerCardSelections } = useContext(NBAContext)
 
   const removePlayer = () => {
     let updatedPlayerSelections = [...playerSelections]
     updatedPlayerSelections[id] = updatedPlayerSelections[id].filter(p => p.details.name !== player.details.name)
     setPlayerSelections(updatedPlayerSelections)
+  }
+
+  const updatePlayerCard = () => {
+    let updatedPlayerCardSelections = [...playerCardSelections]
+    updatedPlayerCardSelections[id] = player
+    setPlayerCardSelections(updatedPlayerCardSelections)
   }
 
   return (
@@ -30,7 +36,7 @@ const BasicTradeItem = ({ id, player }) => {
         <Flex 
           grow='1' direction='column' gap='4px' align='center' justify='center'
           _hover={{cursor: 'pointer'}}
-          onClick={() => console.log('Clicked on player info')} // Added as placeholder
+          onClick={() => updatePlayerCard()} // Added as placeholder
           >
           <Heading as='h2' fontSize='1rem'>{player.details.name}</Heading>
           <Text fontWeight='light' fontSize='1rem'>${currentSalary}</Text>
@@ -39,7 +45,7 @@ const BasicTradeItem = ({ id, player }) => {
           <CloseButton 
             size='sm'
             _hover={{bg: 'white'}}
-            onClick={() => removePlayer()} // Added as placeholder
+            onClick={() => removePlayer()}
           />
         </Fade>
       </HStack>

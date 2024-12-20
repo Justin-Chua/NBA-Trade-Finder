@@ -9,6 +9,7 @@ export const NBAProvider = ({ children }) => {
   const [teamSelections, setTeamSelections] = useState([null, null])
   const [playerSelections, setPlayerSelections] = useState([[], []])
   const [modalSelection, setModalSelection] = useState(null)
+  const [playerCardSelections, setPlayerCardSelections] = useState([null, null])
 
   useEffect(() => {
     const getTeams = async () => {
@@ -45,8 +46,8 @@ export const NBAProvider = ({ children }) => {
   }, [])
 
   return (
-    <NBAContext.Provider value={{ teams, teamSelections, setTeamSelections, 
-      players, playerSelections, setPlayerSelections, modalSelection, setModalSelection }}
+    <NBAContext.Provider value={{ teams, teamSelections, setTeamSelections, players, playerSelections, 
+      setPlayerSelections, modalSelection, setModalSelection, playerCardSelections, setPlayerCardSelections }}
     >
       {children}
     </NBAContext.Provider>

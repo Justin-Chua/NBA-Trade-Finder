@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { 
   Button, Heading, Flex, VStack,
   Modal, ModalOverlay, ModalContent, ModalHeader, 
@@ -6,9 +6,18 @@ import {
 } from '@chakra-ui/react'
 import { PlusSquareIcon } from '@chakra-ui/icons'
 import AdvancedTradeItem from './AdvancedTradeItem.jsx'
+import { NBAContext } from '../NBAContext'
+import PropTypes from 'prop-types'
 
-const AddTradeItem = () => {
+
+const AddTradeItem = ({ id }) => {
   const [modalOpen, setModalOpen] = useState(false)
+  const { players, teamSelections } = useContext(NBAContext)
+  const availablePlayers = Object.entries(players).filter(
+    ([teamName, _]) => teamName !== teamSelections[id]?.name 
+    && teamSelections.some(team => team?.name === teamName))
+
+  console.log('Avaialble players are: ', availablePlayers)
 
   const addPlayer = () => {
     // TODO: add player to context, which will update UI
@@ -31,7 +40,7 @@ const AddTradeItem = () => {
 
       <Modal 
         isOpen={modalOpen} onClose={() => setModalOpen(false)}
-        size='xl' colorScheme='ATL' scrollBehavior='inside'
+        size='xl' scrollBehavior='inside'
       >
         <ModalOverlay />
         <ModalContent>
@@ -39,16 +48,11 @@ const AddTradeItem = () => {
           <ModalCloseButton mr='0.5rem' />
           <ModalBody>
             <VStack gap='0.5rem' align='center' justify='center'>
-              <AdvancedTradeItem />
-              <AdvancedTradeItem />
-              <AdvancedTradeItem />
-              <AdvancedTradeItem />
-              <AdvancedTradeItem />
-              <AdvancedTradeItem />
-              <AdvancedTradeItem />
-              <AdvancedTradeItem />
-              <AdvancedTradeItem />
-              <AdvancedTradeItem />
+              {availablePlayers.map(([teamName, players]) => (
+                players.map((player) => {
+                  return <AdvancedTradeItem key={[teamName, player.details.name]} player={player} />
+                })
+              ))}
             </VStack>
           </ModalBody>
           <ModalFooter>
@@ -63,6 +67,10 @@ const AddTradeItem = () => {
       </Modal>
     </>
   )
+}
+
+AddTradeItem.propTypes = {
+  id: PropTypes.number.isRequired
 }
 
 export default AddTradeItem

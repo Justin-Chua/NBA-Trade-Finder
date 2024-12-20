@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { Flex, Image, Heading, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 import { ArrowDownIcon } from '@chakra-ui/icons'
 import { NBAContext } from '../NBAContext'
@@ -8,9 +8,9 @@ const TradeHeader = ({ id }) => {
   const { teams, teamSelections, setTeamSelections } = useContext(NBAContext)
 
   const handleTeamSelection = (name) => {
-    let copy = [...teamSelections]
-    copy[id] = teams[name]
-    setTeamSelections(copy)
+    let updatedTeamSelections = [...teamSelections]
+    updatedTeamSelections[id] = teams[name]
+    setTeamSelections(updatedTeamSelections)
   }
 
   return (

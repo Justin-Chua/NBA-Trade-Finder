@@ -40,7 +40,7 @@ def scrape_team_data(team_index, team_name, team_abbreviation):
     players = soup.find("tbody").find_all("tr")
     # iterate through each individual player, and scrape data
     for player in players:
-        player_data = scrape_player_data(player, team_index, team_name)
+        player_data = scrape_player_data(player, team_name)
         if player_data:
             player_records.append(player_data)
 
@@ -54,7 +54,7 @@ def scrape_team_data(team_index, team_name, team_abbreviation):
     return team_record, player_records
 
 
-def scrape_player_data(player, team_id, team_name):
+def scrape_player_data(player, team_name):
     # check whether or not the player name is stored as an anchor tag or td tag
     anchor = player.find("a")
     player_name = anchor.text.strip() if anchor else player.find("td", class_="name").text.strip()
@@ -75,7 +75,7 @@ def scrape_player_data(player, team_id, team_name):
             raise ValueError(f"Error while fetching {player_name}'s salaries")
 
         player_record = {
-            "team_id": team_id,
+            "team_name": team_name,
             "details": player_bio_info,
             "contract": player_salary_info
         }

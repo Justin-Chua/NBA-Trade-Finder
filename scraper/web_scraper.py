@@ -89,11 +89,11 @@ def scrape_player_bio(anchor, player_name):
         img_tag = soup.find("img", alt=player_name)
         number_tag = soup.find("div", class_="player-jersey")
         position_tag = soup.find("span", class_="player-bio-text-line-value")
-        player_headshot = img_tag.get('src') if img_tag else '-'
+        player_headshot = img_tag.get('src') if img_tag else ''
         player_number = number_tag.text.strip() if number_tag else '-'
         player_position = position_tag.text.strip() if position_tag else '-'
     else:
-        player_headshot, player_number, player_position = '-', '-', '-'
+        player_headshot, player_number, player_position = '', '-', '-'
 
     player_bio_info = {
         "name": player_name,

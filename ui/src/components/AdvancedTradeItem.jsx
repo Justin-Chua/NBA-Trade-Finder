@@ -1,8 +1,11 @@
+import { useContext } from 'react'
 import { Box, HStack, VStack, Text, Heading, Image } from '@chakra-ui/react'
+import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
 const AdvancedTradeItem = ({ player }) => {
   const currentSalary = player.contract.salaries[0].toLocaleString('en-US')
+  const { teams } = useContext(NBAContext)
 
   return (
     <Box 
@@ -13,7 +16,7 @@ const AdvancedTradeItem = ({ player }) => {
       <HStack align='center' justify='space-between'>
         <HStack gap='1rem'>
           <Image
-            src={player.details.headshot}
+            src={player.details.headshot || '/resources/placeholders/player-headshot-placeholder.png'}
             boxSize='3rem'
           />
           <VStack gap='0.25rem' align='start'>
@@ -26,7 +29,7 @@ const AdvancedTradeItem = ({ player }) => {
         <HStack gap='4rem'>
           <Text fontWeight='light' fontSize='1rem'>${currentSalary}</Text>
           <Image
-            src='https://seeklogo.com/images/A/atlanta-hawks-logo-A108D0AC8D-seeklogo.com.png'
+            src={`/resources/teams/${teams[player.team_name].abbreviation}.svg`}
             boxSize='2rem'
           />
         </HStack>

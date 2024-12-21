@@ -1,5 +1,6 @@
 import { useContext } from 'react'
-import { Flex, Image, Heading, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { Flex, Image, Heading, Button, 
+  Menu, MenuButton, MenuList, MenuItem, Tooltip } from '@chakra-ui/react'
 import { ArrowDownIcon } from '@chakra-ui/icons'
 import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
@@ -46,15 +47,19 @@ const TradeHeader = ({ id }) => {
         </MenuButton>
         <MenuList maxH='265px' w='350px' fontSize='24px' border='4px' borderColor='gray.800' overflowY='auto'>
           {Object.values(teams).map((team) => (
-            <MenuItem
-              key={team._id}
-              pl='1rem' h='50px' onClick={() => handleTeamSelection(team.name)}
-              icon={<Image src={`/resources/teams/${team.abbreviation}.svg`} boxSize='2rem' />}
-              iconSpacing='1rem' 
-              isDisabled={teamSelections.some(t => t?.name === team.name)}
+            <Tooltip key={team._id} label='Team has been selected' placement='left' 
+              isDisabled={!teamSelections.some(t => t?.name === team.name)}
             >
-              <Heading as='h1' fontSize='22px' fontWeight='light'>{team.name}</Heading>
-            </MenuItem>
+              <MenuItem
+                key={team._id} flexGrow='1'
+                px='1rem' h='50px' onClick={() => handleTeamSelection(team.name)}
+                icon={<Image src={`/resources/teams/${team.abbreviation}.svg`} boxSize='2rem' />}
+                iconSpacing='1rem' 
+                isDisabled={teamSelections.some(t => t?.name === team.name)}
+              >
+                <Heading as='h1' fontSize='22px' fontWeight='light'>{team.name}</Heading>
+              </MenuItem>
+            </Tooltip>
           ))}
         </MenuList>
       </Menu>

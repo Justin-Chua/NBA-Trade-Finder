@@ -12,6 +12,13 @@ const BasicTradeItem = ({ id, player }) => {
     let updatedPlayerSelections = [...playerSelections]
     updatedPlayerSelections[id] = updatedPlayerSelections[id].filter(p => p.details.name !== player.details.name)
     setPlayerSelections(updatedPlayerSelections)
+    // check if player is currently displayed on PlayerCard
+    if (playerCardSelections[id] === player) {
+      // if so, we also reset the selection to null
+      let updatedPlayerCardSelections = [...playerCardSelections]
+      updatedPlayerCardSelections[id] = null
+      setPlayerCardSelections(updatedPlayerCardSelections)
+    }
   }
 
   const updatePlayerCard = () => {

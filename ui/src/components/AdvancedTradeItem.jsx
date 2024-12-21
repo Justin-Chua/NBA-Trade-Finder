@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Button, HStack, VStack, Text, Heading, Image } from '@chakra-ui/react'
+import { Button, HStack, VStack, Text, Heading, Image, Tooltip } from '@chakra-ui/react'
 import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
@@ -8,36 +8,40 @@ const AdvancedTradeItem = ({ id, player }) => {
   const { teams, playerSelections, setModalSelection } = useContext(NBAContext)
 
   return (
-    <Button 
-      px='1rem' py='0.25rem' minH='4rem' minW='560px' 
-      bg='gray.200' borderRadius='0.5rem'
-      align='center' justify='center'
-      isDisabled={playerSelections[id].some(p => p.details?.name === player.details.name)}
-      _hover={{cursor: 'pointer', bg: 'gray.300'}}
-      onClick={() => setModalSelection(player)}
+    <Tooltip label='Player has been selected' placement='left'
+      isDisabled={!playerSelections[id].some(p => p.details?.name === player.details.name)}
     >
-      <HStack w='full' align='center' justify='space-between'>
-        <HStack gap='1rem'>
-          <Image
-            src={player.details.headshot || '/resources/placeholders/player-headshot-placeholder.png'}
-            boxSize='3.5rem'
-          />
-          <VStack gap='0.25rem' align='start'>
-            <Heading as='h2' fontSize='1rem'>{player.details.name} | {player.details.position}</Heading>
-            <Text fontWeight='light' fontSize='0.75rem'>
-              {player.contract.length} Year{player.contract.length !== 1 ? 's' : ''}
-            </Text>
-          </VStack>
+      <Button 
+        px='1rem' py='0.25rem' minH='4rem' minW='560px' 
+        bg='gray.200' borderRadius='0.5rem'
+        align='center' justify='center'
+        isDisabled={playerSelections[id].some(p => p.details?.name === player.details.name)}
+        _hover={{cursor: 'pointer', bg: 'gray.300'}}
+        onClick={() => setModalSelection(player)}
+      >
+        <HStack w='full' align='center' justify='space-between'>
+          <HStack gap='1rem'>
+            <Image
+              src={player.details.headshot || '/resources/placeholders/player-headshot-placeholder.png'}
+              boxSize='3.5rem'
+            />
+            <VStack gap='0.25rem' align='start'>
+              <Heading as='h2' fontSize='1rem'>{player.details.name} | {player.details.position}</Heading>
+              <Text fontWeight='light' fontSize='0.75rem'>
+                {player.contract.length} Year{player.contract.length !== 1 ? 's' : ''}
+              </Text>
+            </VStack>
+          </HStack>
+          <HStack gap='4rem'>
+            <Text fontWeight='light' fontSize='1rem'>${currentSalary}</Text>
+            <Image
+              src={`/resources/teams/${teams[player.team_name].abbreviation}.svg`}
+              boxSize='2rem'
+            />
+          </HStack>
         </HStack>
-        <HStack gap='4rem'>
-          <Text fontWeight='light' fontSize='1rem'>${currentSalary}</Text>
-          <Image
-            src={`/resources/teams/${teams[player.team_name].abbreviation}.svg`}
-            boxSize='2rem'
-          />
-        </HStack>
-      </HStack>
-    </Button>
+      </Button>
+    </Tooltip>
   )
 }
 

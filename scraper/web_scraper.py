@@ -35,7 +35,7 @@ def scrape_team_data(team_index, team_name, team_abbreviation):
     team_record, player_records = None, []
     # status message for console
     print(f"Scraping team data for: {team_name}")
-    team_salary = soup.find("div", class_="payroll-totals").find("span").text.strip()
+    team_salary = int(soup.find("div", class_="payroll-totals").find("span").text.strip().replace(',', '')[1::])
     # find all players for specified team
     players = soup.find("tbody").find_all("tr")
     # iterate through each individual player, and scrape data

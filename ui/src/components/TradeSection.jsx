@@ -23,7 +23,7 @@ const TradeSection = ({ id }) => {
           {playerSelections[id].length < 5 && <AddTradeItem id={id} />}
         </VStack>
       </Flex>
-      <TradeFooter />
+      <TradeFooter id={id} />
     </Box>
   )
 }

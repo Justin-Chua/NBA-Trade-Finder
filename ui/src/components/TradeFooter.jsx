@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Box, HStack, VStack, Text, Heading } from '@chakra-ui/react'
+import { Box, HStack, VStack, Text, Heading, Tooltip } from '@chakra-ui/react'
 import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
@@ -31,11 +31,40 @@ const TradeFooter = ({ id }) => {
 
   const netSalary = () => { return incomingSalary() - outgoingSalary() }
 
+  const validTrade = () => {
+    let isValid = false
+    let updatedLabel = ''
+    let incoming = incomingSalary()
+    let outgoing = outgoingSalary()
+    if (teamSelections[id]?.salary < FIRST_APRON) {
+      if (outgoing <= 7500000) {
+        isValid = incoming <= ((outgoing * 2) + 250000)
+        updatedLabel = `The incoming salary for this team must be less than or equal to
+          200% of the outgoing salary, plus 250K`
+      } else if (outgoing > 7500000 && outgoing <= 29000000) {
+        isValid = incoming <= (outgoing + 7500000)
+        updatedLabel = `The incoming salary for this team must be less than or equal to
+          100% of the outgoing salary, plus 7.5M`
+      } else {
+        isValid = incoming <= ((outgoing * 1.25) + 250000)
+        updatedLabel = `The incoming salary for this team must be less than or equal to
+          125% of the outgoing salary, plus 250K`
+      }
+    } else {
+      isValid = incoming <= (outgoing * 1.1)
+      updatedLabel = `The incoming salary for this team must be less than or equal to
+        110% of the outgoing salary`
+    }
+    return [isValid, updatedLabel]
+  }
+
   return (
     <HStack px='3rem' h='calc(850px - 100px - (2rem * 2) - 496px)' bg='gray.800' align='center' justify='space-between'>
-      <Box p='1rem' width='40%' bg='white' align='center' justify='center' borderRadius='0.5rem'>
-        <Heading as='h3' color='red' fontSize='2rem'>Invalid Trade</Heading>
-      </Box>
+      <Tooltip label={validTrade()[1]} placement='top' isDisabled={validTrade()[0]}>
+        <Box p='1rem' width='40%' bg='white' align='center' justify='center' borderRadius='0.5rem'>
+          <Heading as='h3' color={validTrade()[0] ? 'green' : 'red'} fontSize='2rem'>{validTrade()[0] ? 'Valid' : 'Invalid'} Trade</Heading>
+        </Box>
+      </Tooltip>
       <VStack spacing='0.5rem' width='50%'>
         <HStack justify='space-between' width='100%'>
           <Text color='white' fontWeight='bold' fontSize='1.5rem'>Team Salary:</Text>

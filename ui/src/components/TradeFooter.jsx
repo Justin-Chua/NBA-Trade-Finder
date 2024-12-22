@@ -18,7 +18,7 @@ const TradeFooter = ({ id }) => {
 
   const outgoingSalary = () => {
     let salary = 0
-    let selectedTeamName = teamSelections[id]?.name
+    const selectedTeamName = teamSelections[id]?.name
     for (let i = 0; i < playerSelections?.length; i++) {
       for (let j = 0; j < playerSelections[i]?.length; j++) {
         if (playerSelections[i][j]?.team_name === selectedTeamName) {
@@ -34,8 +34,8 @@ const TradeFooter = ({ id }) => {
   const validTrade = () => {
     let isValid = false
     let updatedLabel = ''
-    let incoming = incomingSalary()
-    let outgoing = outgoingSalary()
+    const incoming = incomingSalary()
+    const outgoing = outgoingSalary()
     if (teamSelections[id]?.salary < FIRST_APRON) {
       if (outgoing <= 7500000) {
         isValid = incoming <= ((outgoing * 2) + 250000)

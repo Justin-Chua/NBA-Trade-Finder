@@ -16,7 +16,7 @@ const theme = extendTheme({
         '::-webkit-scrollbar-track': {
           bg: 'white',
           borderRadius: '0.5rem'
-        }  
+        }
       }
     }
   },

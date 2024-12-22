@@ -8,15 +8,16 @@ const AdvancedTradeItem = ({ id, player }) => {
   const { teams, playerSelections, setModalSelection } = useContext(NBAContext)
 
   return (
-    <Tooltip label='Player has been selected' placement='left'
+    <Tooltip
+      label='Player has been selected' placement='left'
       isDisabled={!playerSelections[id].some(p => p.details?.name === player.details.name)}
     >
-      <Button 
-        px='1rem' py='0.25rem' minH='4rem' minW='560px' 
+      <Button
+        px='1rem' py='0.25rem' minH='4rem' minW='560px'
         bg='gray.200' borderRadius='0.5rem'
         align='center' justify='center'
         isDisabled={playerSelections[id].some(p => p.details?.name === player.details.name)}
-        _hover={{cursor: 'pointer', bg: 'gray.300'}}
+        _hover={{ cursor: 'pointer', bg: 'gray.300' }}
         onClick={() => setModalSelection(player)}
       >
         <HStack w='full' align='center' justify='space-between'>
@@ -53,7 +54,7 @@ AdvancedTradeItem.propTypes = {
       name: PropTypes.string.isRequired,
       headshot: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
-      position: PropTypes.string.isRequired,
+      position: PropTypes.string.isRequired
     }).isRequired,
     contract: PropTypes.shape({
       salaries: PropTypes.array.isRequired,

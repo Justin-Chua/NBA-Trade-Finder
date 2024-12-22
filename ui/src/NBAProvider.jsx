@@ -46,8 +46,18 @@ export const NBAProvider = ({ children }) => {
   }, [])
 
   return (
-    <NBAContext.Provider value={{ teams, teamSelections, setTeamSelections, players, playerSelections, 
-      setPlayerSelections, modalSelection, setModalSelection, playerCardSelections, setPlayerCardSelections }}
+    <NBAContext.Provider value={{
+      teams,
+      teamSelections,
+      setTeamSelections,
+      players,
+      playerSelections,
+      setPlayerSelections,
+      modalSelection,
+      setModalSelection,
+      playerCardSelections,
+      setPlayerCardSelections
+    }}
     >
       {children}
     </NBAContext.Provider>

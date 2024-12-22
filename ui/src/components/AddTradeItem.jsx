@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
-import { 
+import {
   Button, Heading, Flex, VStack, Text,
-  Modal, ModalOverlay, ModalContent, ModalHeader, 
+  Modal, ModalOverlay, ModalContent, ModalHeader,
   ModalFooter, ModalBody, ModalCloseButton, Tooltip
 } from '@chakra-ui/react'
 import { PlusSquareIcon } from '@chakra-ui/icons'
@@ -9,17 +9,16 @@ import AdvancedTradeItem from './AdvancedTradeItem.jsx'
 import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
-
 const AddTradeItem = ({ id }) => {
   const [modalOpen, setModalOpen] = useState(false)
   const { players, playerSelections, setPlayerSelections, teamSelections, modalSelection, setModalSelection } = useContext(NBAContext)
   const availablePlayers = Object.entries(players).filter(
-    ([teamName]) => teamName !== teamSelections[id]?.name 
-    && teamSelections.some(t => t?.name === teamName))
+    ([teamName]) => teamName !== teamSelections[id]?.name &&
+    teamSelections.some(t => t?.name === teamName))
 
   const addPlayer = () => {
     setModalOpen(false)
-    let updatedPlayerSelections = [...playerSelections]
+    const updatedPlayerSelections = [...playerSelections]
     updatedPlayerSelections[id].push(modalSelection)
     setPlayerSelections(updatedPlayerSelections)
     setModalSelection(null)
@@ -30,7 +29,7 @@ const AddTradeItem = ({ id }) => {
       <Tooltip label='Select a team in all sections' isDisabled={!teamSelections.some(t => t === null)}>
         <Button
           pl='2rem' pr='calc(1rem + 24px + (0.25rem / 2))' minH='80px' minW='350px' bg='white' borderRadius='0.5rem'
-          _hover={{bg: 'gray.200'}}
+          _hover={{ bg: 'gray.200' }}
           onClick={() => setModalOpen(true)}
           isDisabled={teamSelections.some(t => t === null)}
         >
@@ -41,7 +40,7 @@ const AddTradeItem = ({ id }) => {
         </Button>
       </Tooltip>
 
-      <Modal 
+      <Modal
         isOpen={modalOpen} onClose={() => setModalOpen(false)}
         size='2xl' scrollBehavior='inside'
       >
@@ -63,9 +62,9 @@ const AddTradeItem = ({ id }) => {
           <ModalFooter>
             <Flex grow='1' direction='row' align='center' justify='space-between'>
               <Text ml='0.5rem' fontSize='1rem'><b>Selected Player: </b>{modalSelection?.details.name}</Text>
-              <Button 
+              <Button
                 bg='gray.800' color='white' mr='0.5rem' onClick={addPlayer}
-                _hover={{bg: 'gray.200', color: 'gray.800'}}
+                _hover={{ bg: 'gray.200', color: 'gray.800' }}
                 isDisabled={modalSelection === null}
               >
                 Add Player

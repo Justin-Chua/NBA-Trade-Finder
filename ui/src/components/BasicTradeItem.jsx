@@ -9,49 +9,49 @@ const BasicTradeItem = ({ id, player }) => {
   const { teams, playerSelections, setPlayerSelections, playerCardSelections, setPlayerCardSelections } = useContext(NBAContext)
 
   const removePlayer = () => {
-    let updatedPlayerSelections = [...playerSelections]
+    const updatedPlayerSelections = [...playerSelections]
     updatedPlayerSelections[id] = updatedPlayerSelections[id].filter(p => p.details.name !== player.details.name)
     setPlayerSelections(updatedPlayerSelections)
     // check if player is currently displayed on PlayerCard
     if (playerCardSelections[id] === player) {
       // if so, we also reset the selection to null
-      let updatedPlayerCardSelections = [...playerCardSelections]
+      const updatedPlayerCardSelections = [...playerCardSelections]
       updatedPlayerCardSelections[id] = null
       setPlayerCardSelections(updatedPlayerCardSelections)
     }
   }
 
   const updatePlayerCard = () => {
-    let updatedPlayerCardSelections = [...playerCardSelections]
+    const updatedPlayerCardSelections = [...playerCardSelections]
     updatedPlayerCardSelections[id] = player
     setPlayerCardSelections(updatedPlayerCardSelections)
   }
 
   return (
-    <Box 
-      pl='2rem' pr='1rem' py='1rem' minH='5rem' minW='350px' bg='white' 
+    <Box
+      pl='2rem' pr='1rem' py='1rem' minH='5rem' minW='350px' bg='white'
       borderRadius='0.5rem' align='center' justify='center'
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      _hover={{bg: 'gray.200'}}
+      _hover={{ bg: 'gray.200' }}
     >
       <HStack>
         <Image
           src={`/resources/teams/${teams[player.team_name]?.abbreviation}.svg`}
           boxSize='3rem'
         />
-        <Flex 
+        <Flex
           grow='1' direction='column' gap='4px' align='center' justify='center'
-          _hover={{cursor: 'pointer'}}
-          onClick={() => updatePlayerCard()} // Added as placeholder
-          >
+          _hover={{ cursor: 'pointer' }}
+          onClick={() => updatePlayerCard()}
+        >
           <Heading as='h2' fontSize='1rem'>{player.details.name}</Heading>
           <Text fontWeight='light' fontSize='1rem'>${currentSalary}</Text>
         </Flex>
         <Fade in={hovered}>
-          <CloseButton 
+          <CloseButton
             size='sm'
-            _hover={{bg: 'white'}}
+            _hover={{ bg: 'white' }}
             onClick={() => removePlayer()}
           />
         </Fade>
@@ -68,7 +68,7 @@ BasicTradeItem.propTypes = {
       name: PropTypes.string.isRequired,
       headshot: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
-      position: PropTypes.string.isRequired,
+      position: PropTypes.string.isRequired
     }).isRequired,
     contract: PropTypes.shape({
       salaries: PropTypes.array.isRequired,

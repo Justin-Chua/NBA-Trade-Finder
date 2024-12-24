@@ -5,7 +5,7 @@ import {
   ModalFooter, ModalBody, ModalCloseButton, Tooltip
 } from '@chakra-ui/react'
 import { PlusSquareIcon } from '@chakra-ui/icons'
-import AdvancedTradeItem from './AdvancedTradeItem.jsx'
+import ModalItem from './ModalItem.jsx'
 import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
@@ -54,7 +54,7 @@ const AddTradeItem = ({ id }) => {
             <VStack gap='0.5rem' align='center' justify='center'>
               {availablePlayers.map(([teamName, players]) => (
                 players.map((player) => {
-                  return <AdvancedTradeItem key={[teamName, player.details.name]} id={id} player={player} />
+                  return <ModalItem key={[teamName, player.details.name]} id={id} player={player} />
                 })
               ))}
             </VStack>

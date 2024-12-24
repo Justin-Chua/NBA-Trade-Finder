@@ -3,7 +3,7 @@ import { Button, HStack, VStack, Text, Heading, Image, Tooltip } from '@chakra-u
 import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
-const AdvancedTradeItem = ({ id, player }) => {
+const ModalItem = ({ id, player }) => {
   const currentSalary = player.contract.salaries[0].toLocaleString('en-US')
   const { teams, playerSelections, setModalSelection } = useContext(NBAContext)
 
@@ -46,7 +46,7 @@ const AdvancedTradeItem = ({ id, player }) => {
   )
 }
 
-AdvancedTradeItem.propTypes = {
+ModalItem.propTypes = {
   id: PropTypes.number.isRequired,
   player: PropTypes.shape({
     team_name: PropTypes.string.isRequired,
@@ -63,4 +63,4 @@ AdvancedTradeItem.propTypes = {
   }).isRequired
 }
 
-export default AdvancedTradeItem
+export default ModalItem

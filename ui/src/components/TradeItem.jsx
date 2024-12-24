@@ -3,7 +3,7 @@ import { Fade, Box, Flex, HStack, CloseButton, Text, Heading, Image } from '@cha
 import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
-const BasicTradeItem = ({ id, player }) => {
+const TradeItem = ({ id, player }) => {
   const currentSalary = player.contract.salaries[0].toLocaleString('en-US')
   const [hovered, setHovered] = useState(false)
   const { teams, playerSelections, setPlayerSelections, playerCardSelections, setPlayerCardSelections } = useContext(NBAContext)
@@ -60,7 +60,7 @@ const BasicTradeItem = ({ id, player }) => {
   )
 }
 
-BasicTradeItem.propTypes = {
+TradeItem.propTypes = {
   id: PropTypes.number.isRequired,
   player: PropTypes.shape({
     team_name: PropTypes.string.isRequired,
@@ -77,4 +77,4 @@ BasicTradeItem.propTypes = {
   }).isRequired
 }
 
-export default BasicTradeItem
+export default TradeItem

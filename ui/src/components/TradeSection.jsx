@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { Box, Flex, VStack } from '@chakra-ui/react'
 import TradeHeader from './TradeHeader.jsx'
 import PlayerCard from './PlayerCard.jsx'
-import BasicTradeItem from './BasicTradeItem.jsx'
+import TradeItem from './TradeItem.jsx'
 import AddTradeItem from './AddTradeItem.jsx'
 import TradeFooter from './TradeFooter.jsx'
 import { NBAContext } from '../NBAContext'
@@ -18,7 +18,7 @@ const TradeSection = ({ id }) => {
         <PlayerCard id={id} />
         <VStack spacing='1.5rem'>
           {playerSelections[id].map((player) => (
-            <BasicTradeItem key={[player.team_name, player.details.name]} id={id} player={player} />
+            <TradeItem key={[player.team_name, player.details.name]} id={id} player={player} />
           ))}
           {playerSelections[id].length < 5 && <AddTradeItem id={id} />}
         </VStack>

@@ -6,8 +6,8 @@ const App = () => {
   return (
     <NBAProvider>
       <Flex pt='2rem' direction='row' align='center' justify='center'>
-        <TradeSection />
-        <TradeSection />
+        <TradeSection id={0} />
+        <TradeSection id={1} />
       </Flex>
     </NBAProvider>
   )

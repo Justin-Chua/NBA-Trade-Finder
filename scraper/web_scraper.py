@@ -35,12 +35,12 @@ def scrape_team_data(team_index, team_name, team_abbreviation):
     team_record, player_records = None, []
     # status message for console
     print(f"Scraping team data for: {team_name}")
-    team_salary = soup.find("div", class_="payroll-totals").find("span").text.strip()
+    team_salary = int(soup.find("div", class_="payroll-totals").find("span").text.strip().replace(',', '')[1::])
     # find all players for specified team
     players = soup.find("tbody").find_all("tr")
     # iterate through each individual player, and scrape data
     for player in players:
-        player_data = scrape_player_data(player, team_index, team_name)
+        player_data = scrape_player_data(player, team_name)
         if player_data:
             player_records.append(player_data)
 
@@ -54,7 +54,7 @@ def scrape_team_data(team_index, team_name, team_abbreviation):
     return team_record, player_records
 
 
-def scrape_player_data(player, team_id, team_name):
+def scrape_player_data(player, team_name):
     # check whether or not the player name is stored as an anchor tag or td tag
     anchor = player.find("a")
     player_name = anchor.text.strip() if anchor else player.find("td", class_="name").text.strip()
@@ -75,7 +75,7 @@ def scrape_player_data(player, team_id, team_name):
             raise ValueError(f"Error while fetching {player_name}'s salaries")
 
         player_record = {
-            "team_id": team_id,
+            "team_name": team_name,
             "details": player_bio_info,
             "contract": player_salary_info
         }
@@ -89,11 +89,11 @@ def scrape_player_bio(anchor, player_name):
         img_tag = soup.find("img", alt=player_name)
         number_tag = soup.find("div", class_="player-jersey")
         position_tag = soup.find("span", class_="player-bio-text-line-value")
-        player_headshot = img_tag.get('src') if img_tag else '-'
+        player_headshot = img_tag.get('src') if img_tag else ''
         player_number = number_tag.text.strip() if number_tag else '-'
         player_position = position_tag.text.strip() if position_tag else '-'
     else:
-        player_headshot, player_number, player_position = '-', '-', '-'
+        player_headshot, player_number, player_position = '', '-', '-'
 
     player_bio_info = {
         "name": player_name,

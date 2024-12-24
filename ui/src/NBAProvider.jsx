@@ -6,6 +6,10 @@ import { NBAContext } from './NBAContext'
 export const NBAProvider = ({ children }) => {
   const [teams, setTeams] = useState([])
   const [players, setPlayers] = useState([])
+  const [teamSelections, setTeamSelections] = useState([null, null])
+  const [playerSelections, setPlayerSelections] = useState([[], []])
+  const [modalSelection, setModalSelection] = useState(null)
+  const [playerCardSelections, setPlayerCardSelections] = useState([null, null])
 
   useEffect(() => {
     const getTeams = async () => {
@@ -24,7 +28,14 @@ export const NBAProvider = ({ children }) => {
     const getPlayers = async () => {
       try {
         const playersData = await fetchPlayers()
-        setPlayers(playersData)
+        const playersByTeam = playersData.reduce((acc, player) => {
+          if (!acc[player.team_name]) {
+            acc[player.team_name] = []
+          }
+          acc[player.team_name].push(player)
+          return acc
+        }, {})
+        setPlayers(playersByTeam)
       } catch (error) {
         console.error('Error fetching players:', error)
       }
@@ -35,7 +46,19 @@ export const NBAProvider = ({ children }) => {
   }, [])
 
   return (
-    <NBAContext.Provider value={{ teams, players }}>
+    <NBAContext.Provider value={{
+      teams,
+      teamSelections,
+      setTeamSelections,
+      players,
+      playerSelections,
+      setPlayerSelections,
+      modalSelection,
+      setModalSelection,
+      playerCardSelections,
+      setPlayerCardSelections
+    }}
+    >
       {children}
     </NBAContext.Provider>
   )

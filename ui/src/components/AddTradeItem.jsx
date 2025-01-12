@@ -11,16 +11,24 @@ import PropTypes from 'prop-types'
 
 const AddTradeItem = ({ id }) => {
   const [modalOpen, setModalOpen] = useState(false)
-  const { players, playerSelections, setPlayerSelections, teamSelections, modalSelection, setModalSelection } = useContext(NBAContext)
+  const { players, playerSelections, setPlayerSelections, teamSelections, 
+    modalSelection, setModalSelection, playerCardSelections, setPlayerCardSelections } = useContext(NBAContext)
   const availablePlayers = Object.entries(players).filter(
     ([teamName]) => teamName !== teamSelections[id]?.name &&
     teamSelections.some(t => t?.name === teamName))
 
   const addPlayer = () => {
+    // close the modal
     setModalOpen(false)
-    const updatedPlayerSelections = [...playerSelections]
+    // add player to playerSelections
+    let updatedPlayerSelections = [...playerSelections]
     updatedPlayerSelections[id].push(modalSelection)
     setPlayerSelections(updatedPlayerSelections)
+    // update playerCardSelection to display newly added player
+    let updatedPlayerCardSelections = [...playerCardSelections]
+    updatedPlayerCardSelections[id] = modalSelection
+    setPlayerCardSelections(updatedPlayerCardSelections)
+    // reset modal selection
     setModalSelection(null)
   }
 

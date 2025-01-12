@@ -71,11 +71,11 @@ const TradeFooter = ({ id }) => {
           <Text color='white' fontSize='1.5rem'>{`$${(teamSelections[id]?.salary || 0).toLocaleString('en-us')}`}</Text>
         </HStack>
         <HStack justify='space-between' width='100%'>
-          <Text color='white' fontWeight='bold' fontSize='1.5rem'>Cap Room:</Text>
+          <Text color='white' fontWeight='bold' fontSize='1.5rem'>Cap Space:</Text>
           <Text color='white' fontSize='1.5rem'>{`$${(SALARY_CAP - teamSelections[id]?.salary - netSalary() || 0).toLocaleString('en-us')}`}</Text>
         </HStack>
         <HStack justify='space-between' width='100%'>
-          <Text color='white' fontWeight='bold' fontSize='1.5rem'>Net Salary:</Text>
+          <Text color='white' fontWeight='bold' fontSize='1.5rem'>Salary Gain:</Text>
           <Text color='white' fontSize='1.5rem'>{`$${(netSalary() || 0).toLocaleString('en-us')}`}</Text>
         </HStack>
       </VStack>

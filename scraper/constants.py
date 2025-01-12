@@ -8,6 +8,8 @@ def load_json(file_name):
 
 # The base URL for salaries and players
 HOOPS_HYPE_BASE_URL = "https://hoopshype.com"
+# The base URL for draft picks
+FANSPO_BASE_URL = "https://fanspo.com/nba/teams/*"
 # A dictionary that maps full NBA team names to its abbreviation
 NBA_TEAMS = load_json("./static-data/nba_teams.json")
 # A dictionary that maps NBA players to a team, representing players that should be ignored by the scraper

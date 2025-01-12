@@ -4,7 +4,6 @@ import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
 const ModalItem = ({ id, player }) => {
-  const currentSalary = player.contract.salaries[0].toLocaleString('en-US')
   const { teams, playerSelections, setModalSelection } = useContext(NBAContext)
 
   return (
@@ -34,7 +33,7 @@ const ModalItem = ({ id, player }) => {
             </VStack>
           </HStack>
           <HStack gap='4rem'>
-            <Text fontWeight='light' fontSize='1rem'>${currentSalary}</Text>
+            <Text fontWeight='light' fontSize='1rem'>{`$${player.contract.salaries[0].toLocaleString('en-US')}`}</Text>
             <Image
               src={`/resources/teams/${teams[player.team_name].abbreviation}.svg`}
               boxSize='2rem'

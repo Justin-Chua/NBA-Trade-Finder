@@ -4,19 +4,18 @@ import { NBAContext } from '../NBAContext'
 import PropTypes from 'prop-types'
 
 const TradeItem = ({ id, player }) => {
-  const currentSalary = player.contract.salaries[0].toLocaleString('en-US')
   const [hovered, setHovered] = useState(false)
   const { teams, playerSelections, setPlayerSelections, playerCardSelections, setPlayerCardSelections } = useContext(NBAContext)
 
   const removePlayer = () => {
-    const updatedPlayerSelections = [...playerSelections]
+    let updatedPlayerSelections = [...playerSelections]
     updatedPlayerSelections[id] = updatedPlayerSelections[id].filter(p => p.details.name !== player.details.name)
     setPlayerSelections(updatedPlayerSelections)
     // check if player is currently displayed on PlayerCard
     if (playerCardSelections[id] === player) {
       // if so, we also reset the selection to null
-      const updatedPlayerCardSelections = [...playerCardSelections]
-      updatedPlayerCardSelections[id] = null
+      let updatedPlayerCardSelections = [...playerCardSelections]
+      updatedPlayerCardSelections[id] = playerSelections[id][playerSelections[id].length - 1]
       setPlayerCardSelections(updatedPlayerCardSelections)
     }
   }
@@ -46,7 +45,7 @@ const TradeItem = ({ id, player }) => {
           onClick={() => updatePlayerCard()}
         >
           <Heading as='h2' fontSize='1rem'>{player.details.name}</Heading>
-          <Text fontWeight='light' fontSize='1rem'>${currentSalary}</Text>
+          <Text fontWeight='light' fontSize='1rem'>{`$${player.contract.salaries[0].toLocaleString('en-US')}`}</Text>
         </Flex>
         <Fade in={hovered}>
           <CloseButton

@@ -14,12 +14,12 @@ const TradeHeader = ({ id }) => {
   } = useContext(NBAContext)
 
   const handleTeamSelection = (name) => {
-    const updatedTeamSelections = [...teamSelections]
+    let updatedTeamSelections = [...teamSelections]
     updatedTeamSelections[id] = teams[name]
     setTeamSelections(updatedTeamSelections)
     // clear the player selections and player card selections for all other trade sections
-    const updatedPlayerSelections = [...playerSelections]
-    const updatedPlayerCardSelections = [...playerCardSelections]
+    let updatedPlayerSelections = [...playerSelections]
+    let updatedPlayerCardSelections = [...playerCardSelections]
     for (let i = 0; i < updatedPlayerSelections.length; i++) {
       if (i !== id) {
         updatedPlayerSelections[i] = []

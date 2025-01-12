@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
-from constants import HOOPS_HYPE_BASE_URL, NBA_TEAMS, SCRAPER_PLAYER_EXCEPTIONS
+from constants import HOOPS_HYPE_BASE_URL, FANSPO_BASE_URL, NBA_TEAMS, SCRAPER_PLAYER_EXCEPTIONS
 
 
 def soupify(url):
@@ -18,16 +18,50 @@ def start_scraper():
     # connect to db
     connection = MongoClient("mongodb://localhost:27017/")
     db = connection['nba']
-    team_collection, player_collection = db['Teams'], db['Players']
+    team_collection, player_collection, pick_collection = db['Teams'], db['Players'], db['Picks']
     # iterate through each NBA team, and scrape salary data for each team
     for team_index, (team_name, team_abbreviation) in enumerate(NBA_TEAMS.items(), start=1):
         team_data, player_data = scrape_team_data(team_index, team_name, team_abbreviation)
+        pick_data = scrape_draft_picks(team_index, team_name)
         try:
             team_collection.insert_one(team_data)
             player_collection.insert_many(player_data)
+            pick_collection.insert_many(pick_data)
         except Exception as e:
             print(f"Error occured while trying to insert records: {e}")
 
+def scrape_draft_picks(team_index, team_name):
+    print(f"\tScraping draft picks...")
+    soup = soupify(f"{FANSPO_BASE_URL}/{team_index}/draft-picks")
+    pick_records = []
+    incoming_picks = soup.find("table", class_="mui-1dbcj55").find("tbody").find_all("tr")
+    for pick in incoming_picks:
+        # there are extra <tr> tags that contain repeated information, so we ignore those
+        if len(pick.contents) == 1:
+            continue
+        year = pick.contents[0].text
+        round = pick.contents[1].text
+        origin = pick.contents[3].text
+        protections = pick.contents[4].find("div").text
+        if protections:
+            type = 'Protected' if "protected" in protections.lower() else 'Unprotected'
+        else:
+            type = ''
+
+        pick_record = {
+            "owner": team_name,
+            "details": {
+                "year": year,
+                "round": round,
+                "type": type,
+                "origin": origin,
+                "protections": protections
+            }
+        }
+
+        pick_records.append(pick_record)
+
+    return pick_records
 
 def scrape_team_data(team_index, team_name, team_abbreviation):
     # scrape salary page for specified team

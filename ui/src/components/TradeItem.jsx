@@ -11,17 +11,18 @@ const TradeItem = ({ id, player }) => {
     let updatedPlayerSelections = [...playerSelections]
     updatedPlayerSelections[id] = updatedPlayerSelections[id].filter(p => p.details.name !== player.details.name)
     setPlayerSelections(updatedPlayerSelections)
-    // check if player is currently displayed on PlayerCard
+    // if so, we also reset the selection to null
     if (playerCardSelections[id] === player) {
-      // if so, we also reset the selection to null
       let updatedPlayerCardSelections = [...playerCardSelections]
-      updatedPlayerCardSelections[id] = playerSelections[id][playerSelections[id].length - 1]
+      updatedPlayerCardSelections[id] = updatedPlayerSelections[id].length === 0 
+        ? null 
+        : updatedPlayerSelections[id][updatedPlayerSelections[id].length - 1]
       setPlayerCardSelections(updatedPlayerCardSelections)
     }
   }
 
   const updatePlayerCard = () => {
-    const updatedPlayerCardSelections = [...playerCardSelections]
+    let updatedPlayerCardSelections = [...playerCardSelections]
     updatedPlayerCardSelections[id] = player
     setPlayerCardSelections(updatedPlayerCardSelections)
   }
